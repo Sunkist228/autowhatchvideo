@@ -14,7 +14,8 @@ import time
 def check_internet_connection():
     try:
         # Попытка выполнить ping на google.com
-        subprocess.run(["ping", "-c", "1", "lmsdo.rea.ru"], check=True)
+        subprocess.run(
+            ["ping", "-c", "5", "lmsdo.rea.ru/login/index.php"], check=True)
         return True
     except subprocess.CalledProcessError:
         return False
