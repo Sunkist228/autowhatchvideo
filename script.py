@@ -1,5 +1,6 @@
 import os
 import subprocess
+import selenium
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By

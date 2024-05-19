@@ -7,15 +7,21 @@ RUN apt-get update && apt-get install -y \
 	libasound2 \
 	libatk-bridge2.0-0 \
 	libatk1.0-0 \
-	libcups2 \
-	libdrm2 \
+	libcairo2 \
+	libcurl4 \
 	libgbm1 \
+	libgtk-3-0 \
 	libnspr4 \
 	libnss3 \
 	libx11-xcb1 \
 	libxcomposite1 \
 	libxdamage1 \
+	libxfixes3 \
 	libxrandr2 \
+	libpango-1.0-0 \
+	libwayland-client0 \
+	xdg-utils \
+	unzip \
 	wget \
 	--no-install-recommends && \
 	rm -rf /var/lib/apt/lists/*
@@ -30,9 +36,13 @@ RUN unzip /tmp/chromeDriver.zip -d /usr/local/bin
 # Установка Google Chrome
 RUN dpkg -i /tmp/google-chrome.deb && apt-get install -f -y
 
+# Копирование и установка зависимостей проекта
+COPY requirements.txt /app/requirements.txt
+WORKDIR /app
+RUN pip install --no-cache-dir -r requirements.txt
+
 # Копирование остальных файлов проекта
 COPY . /app
-WORKDIR /app
 
 # Запуск скрипта
 CMD ["python", "script.py"]
